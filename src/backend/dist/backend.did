@@ -1,0 +1,104 @@
+type ReviewResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type ReviewInput = 
+ record {
+   email: text;
+   rating: nat;
+   reviewText: text;
+   reviewerName: text;
+   trekDate: text;
+   trekSlug: text;
+   yatraSlug: text;
+ };
+type PersonalDetails = 
+ record {
+   dob: text;
+   email: text;
+   emergencyContactName: text;
+   emergencyContactPhone: text;
+   emergencyContactRelation: text;
+   gender: text;
+   name: text;
+   whatsapp: text;
+ };
+type HealthDetails = 
+ record {
+   comfortableWalking6to8h: bool;
+   dietaryRequirements: text;
+   hasMedicalCondition: bool;
+   medicalConditionDetails: text;
+   trekedAbove3500m: bool;
+   tshirtSize: text;
+ };
+type BookingResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type BookingInput = 
+ record {
+   additionalRequests: AdditionalRequests;
+   adults: nat;
+   batchDate: text;
+   children: nat;
+   healthDetails: HealthDetails;
+   personalDetails: PersonalDetails;
+   totalPrice: nat;
+   trekName: text;
+   trekSlug: text;
+ };
+type Booking = 
+ record {
+   additionalRequests: AdditionalRequests;
+   adults: nat;
+   batchDate: text;
+   children: nat;
+   healthDetails: HealthDetails;
+   id: text;
+   personalDetails: PersonalDetails;
+   submittedAt: int;
+   totalPrice: nat;
+   trekName: text;
+   trekSlug: text;
+ };
+type AdditionalRequests = 
+ record {
+   hearAboutUs: text;
+   hotelPostNights: nat;
+   hotelPreNights: nat;
+   needsHotelPostTrek: bool;
+   needsHotelPreTrek: bool;
+   needsMule: bool;
+   needsPickup: bool;
+   needsPorter: bool;
+   specialAssistance: text;
+ };
+service : {
+  getBookings: () -> (vec Booking) query;
+  submitBooking: (input: BookingInput) -> (BookingResult);
+  submitReview: (input: ReviewInput) -> (ReviewResult);
+  transform: (input:
+   record {
+     context: blob;
+     response:
+      record {
+        body: blob;
+        headers: vec record {
+                       name: text;
+                       value: text;
+                     };
+        status: nat;
+      };
+   }) ->
+   (record {
+      body: blob;
+      headers: vec record {
+                     name: text;
+                     value: text;
+                   };
+      status: nat;
+    }) query;
+}

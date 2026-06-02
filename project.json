@@ -1,0 +1,31 @@
+{
+  "overview": "World-class Himalayan trekking and pilgrimage booking platform for Indian Treks — India's premier adventure company based in Dehradun.",
+  "features": [
+    "7 Himalayan trek packages with full itineraries and pricing",
+    "5 sacred yatra pilgrimage tours",
+    "Video-first trek cards with hover effects",
+    "3-step booking wizard with Stripe payment",
+    "My Account dashboard with trek history and badges",
+    "Interactive trek map with elevation profiles",
+    "AI trek recommendation wizard",
+    "Trek comparison tool",
+    "Gear rental marketplace",
+    "Blog with SEO-optimized articles",
+    "FAQ section with cancellation policy",
+    "Mobile-first with story-format hero and bottom navigation",
+    "WCAG 2.2 AA accessible",
+    "PWA with offline support"
+  ],
+  "category": "travel-booking",
+  "tags": [
+    "trekking",
+    "himalayan",
+    "india",
+    "adventure",
+    "yatra",
+    "pilgrimage",
+    "uttarakhand",
+    "booking"
+  ],
+  "last_updated": "2026-06-02T10:21:59.569Z"
+}

@@ -1,0 +1,80 @@
+// Version: 1.0.0
+type AdditionalRequests__851228801 =
+  {
+    hearAboutUs : Text;
+    hotelPostNights : Nat;
+    hotelPreNights : Nat;
+    needsHotelPostTrek : Bool;
+    needsHotelPreTrek : Bool;
+    needsMule : Bool;
+    needsPickup : Bool;
+    needsPorter : Bool;
+    specialAssistance : Text
+  };
+type Booking__628731632 =
+  {
+    additionalRequests : AdditionalRequests__851228801;
+    adults : Nat;
+    batchDate : Text;
+    children : Nat;
+    healthDetails : HealthDetails__901530396;
+    id : Text;
+    personalDetails : PersonalDetails__22528156;
+    submittedAt : Int;
+    totalPrice : Nat;
+    trekName : Text;
+    trekSlug : Text
+  };
+type Booking__875771547 = Booking__628731632;
+type HealthDetails__901530396 =
+  {
+    comfortableWalking6to8h : Bool;
+    dietaryRequirements : Text;
+    hasMedicalCondition : Bool;
+    medicalConditionDetails : Text;
+    trekedAbove3500m : Bool;
+    tshirtSize : Text
+  };
+type Nat__1040412405 = Nat__920180692;
+type Nat__920180692 = Nat;
+type PersonalDetails__22528156 =
+  {
+    dob : Text;
+    email : Text;
+    emergencyContactName : Text;
+    emergencyContactPhone : Text;
+    emergencyContactRelation : Text;
+    gender : Text;
+    name : Text;
+    whatsapp : Text
+  };
+type Review__1059295586 =
+  {
+    email : Text;
+    id : Text;
+    rating : Nat;
+    reviewText : Text;
+    reviewerName : Text;
+    submittedAt : Int;
+    trekDate : Text;
+    trekSlug : Text;
+    yatraSlug : Text
+  };
+type Review__991390467 = Review__1059295586;
+actor {
+  stable BOOKING_EMAIL : Text;
+  stable bookingState : {var nextBookingId : Nat};
+  stable bookings :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?Booking__875771547]];
+      var elementIndex : Nat__1040412405
+    };
+  stable reviewState : {var nextReviewId : Nat};
+  stable reviews :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?Review__991390467]];
+      var elementIndex : Nat__1040412405
+    }
+};

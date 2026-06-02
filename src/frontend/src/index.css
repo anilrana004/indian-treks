@@ -1,0 +1,879 @@
+/* ============================================================
+   TrekRoot — Global Design System
+   ============================================================ */
+
+/* 1. Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
+
+/* 2. Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Custom Properties
+   ============================================================ */
+@layer base {
+  :root {
+    /* Brand palette */
+    --color-midnight: #ffffff;
+    --color-forest: #f0f9f4;
+    --color-glacier: #38a169;
+    --color-summit: #f59e0b;
+    --color-snow: #ffffff;
+    --color-ash: #9ca3af;
+    --color-ember: #ef4444;
+    --color-pine: #10b981;
+
+    /* Typography */
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-ui: "DM Sans", system-ui, sans-serif;
+    --font-body: "Source Serif 4", Georgia, serif;
+    --font-mono: "Space Mono", monospace;
+
+    /* Layout */
+    --nav-height-desktop: 80px;
+    --nav-height-mobile: 60px;
+    --max-width: 1440px;
+    --section-padding-desktop: 100px;
+    --section-padding-mobile: 60px;
+
+    /* Shape */
+    --radius-card: 16px;
+    --radius-btn: 4px;
+
+    /* Motion */
+    --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* shadcn/ui compatibility tokens (OKLCH) */
+    --radius: 0.625rem;
+    --background: 0.99 0.002 0;
+    --foreground: 0.15 0.005 0;
+    --card: 0.99 0.002 0;
+    --card-foreground: 0.15 0.005 0;
+    --popover: 0.99 0.002 0;
+    --popover-foreground: 0.15 0.005 0;
+    --primary: 0.48 0.13 146;
+    --primary-foreground: 0.99 0.002 0;
+    --secondary: 0.35 0.08 146;
+    --secondary-foreground: 0.99 0.002 0;
+    --muted: 0.92 0.008 0;
+    --muted-foreground: 0.55 0.02 0;
+    --accent: 0.72 0.18 80;
+    --accent-foreground: 0.15 0.005 0;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.99 0.002 0;
+    --border: 0.88 0.008 0;
+    --input: 0.92 0.008 0;
+    --ring: 0.48 0.13 146;
+    --chart-1: 0.48 0.13 146;
+    --chart-2: 0.72 0.18 80;
+    --chart-3: 0.65 0.15 50;
+    --chart-4: 0.55 0.22 25;
+    --chart-5: 0.4 0.12 146;
+    --sidebar: 0.99 0.002 0;
+    --sidebar-foreground: 0.15 0.005 0;
+    --sidebar-primary: 0.48 0.13 146;
+    --sidebar-primary-foreground: 0.99 0.002 0;
+    --sidebar-accent: 0.72 0.18 80;
+    --sidebar-accent-foreground: 0.15 0.005 0;
+    --sidebar-border: 0.88 0.008 0;
+    --sidebar-ring: 0.48 0.13 146;
+
+    --color-primary: #38a169;
+    --color-primary-light: #4caf50;
+    --color-accent: #f59e0b;
+    --color-accent-warm: #fbbf24;
+    --color-dark: #ffffff;
+    --color-surface: #ffffff;
+    --color-white: #ffffff;
+    --color-text-primary: #1f2937;
+    --color-text-muted: #6b7280;
+    --color-danger: #ef4444;
+    --color-success: #10b981;
+    --gradient-hero: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f0f9f4 50%,
+      #f59e0b 100%
+    );
+    --gradient-card: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
+    --gradient-cta: linear-gradient(90deg, #f59e0b, #fbbf24);
+  }
+
+  html {
+    font-size: 16px;
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    @apply border-border box-border;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+/* ============================================================
+   Typography Utilities
+   ============================================================ */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-ui {
+    font-family: var(--font-ui);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* ============================================================
+   Layout Utilities
+   ============================================================ */
+@layer utilities {
+  .section-padding {
+    padding: var(--section-padding-desktop) 0;
+  }
+
+  .container-max {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  @media (max-width: 1023px) {
+    .section-padding {
+      padding: var(--section-padding-mobile) 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .container-max {
+      padding: 0 16px;
+    }
+  }
+}
+
+/* ============================================================
+   Keyframe Animations (CSS-only, no JS libraries)
+   ============================================================ */
+@keyframes fadeUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-2%, -2%);
+  }
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-10px, -10px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulseRing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes scrollIndicator {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes float3D {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Accordion (shadcn/ui) */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ============================================================
+   Animation Utility Classes
+   ============================================================ */
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUpIn 0.6s ease forwards;
+  }
+
+  .animate-scroll-left {
+    animation: scrollLeft 40s linear infinite;
+  }
+
+  .animate-scroll-right {
+    animation: scrollRight 40s linear infinite;
+  }
+
+  .animate-ken-burns {
+    animation: kenBurns 10s ease-in-out infinite alternate;
+  }
+
+  .animate-pulse-ring {
+    animation: pulseRing 2s ease-in-out infinite;
+  }
+
+  .animate-scroll-indicator {
+    animation: scrollIndicator 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float3D 3s ease-in-out infinite;
+  }
+
+  /* Pause child scroll animations on hover */
+  .pause-animation:hover .animate-scroll-left,
+  .pause-animation:hover .animate-scroll-right {
+    animation-play-state: paused;
+  }
+
+  /* Reduced motion overrides */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up,
+    .animate-scroll-left,
+    .animate-scroll-right,
+    .animate-ken-burns,
+    .animate-pulse-ring,
+    .animate-scroll-indicator,
+    .animate-float {
+      animation: none;
+    }
+  }
+}
+
+/* ============================================================
+   Stagger Delays
+   ============================================================ */
+@layer utilities {
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
+}
+
+/* ============================================================
+   Intersection-Observer Reveal
+   ============================================================ */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   Button Components
+   ============================================================ */
+@layer components {
+  .btn-primary {
+    border-radius: var(--radius-btn);
+    background: var(--color-summit);
+    color: #ffffff;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    padding: 14px 28px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-default);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-primary:hover::after {
+    opacity: 1;
+    animation: shimmer 1.5s ease infinite;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    border-radius: var(--radius-btn);
+    background: transparent;
+    color: var(--color-primary);
+    font-family: var(--font-ui);
+    font-weight: 600;
+    padding: 14px 28px;
+    border: 2px solid var(--color-primary);
+    cursor: pointer;
+    transition: var(--transition-default);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-outline:hover {
+    background: rgba(56, 161, 105, 0.05);
+    transform: translateY(-1px);
+  }
+
+  .btn-glacier {
+    border-radius: var(--radius-btn);
+    background: var(--color-primary);
+    color: #ffffff;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-default);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .btn-glacier:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+}
+
+/* ============================================================
+   Card Component
+   ============================================================ */
+@layer components {
+  .card-trek {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: var(--transition-default);
+    background: #ffffff;
+    border-left: 4px solid var(--color-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  .card-trek:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(56, 161, 105, 0.12);
+  }
+}
+
+/* ============================================================
+   Glassmorphism Utilities
+   ============================================================ */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(56, 161, 105, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(240, 249, 244, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(56, 161, 105, 0.1);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(56, 161, 105, 0.08);
+    border-radius: var(--radius-card);
+  }
+}
+
+/* ============================================================
+   Grain Texture Overlay
+   ============================================================ */
+@layer utilities {
+  .grain {
+    position: relative;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.04;
+    animation: grainMove 8s linear infinite alternate;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+/* ============================================================
+   Swipe Carousel (Touch-native, no library)
+   ============================================================ */
+@layer utilities {
+  .swipe-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+  }
+  .swipe-container::-webkit-scrollbar {
+    display: none;
+  }
+  .swipe-item {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+/* ============================================================
+   WhatsApp Float Button
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  cursor: pointer;
+  transition: var(--transition-default);
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+}
+.whatsapp-float .pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: pulseRing 2s ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Back-to-Top Button
+   ============================================================ */
+.back-to-top {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-default);
+  opacity: 0;
+  pointer-events: none;
+}
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.back-to-top:hover {
+  background: var(--color-summit);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   Global Scrollbar
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f9f4;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-summit);
+}
+
+/* ============================================================
+   Accessibility Utilities
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.sr-only:focus {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--color-summit);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  z-index: 10000;
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+/* Focus visible ring for keyboard nav */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Image lazy loading fade-in */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Mobile: thumb-friendly tap targets */
+@media (max-width: 767px) {
+  a,
+  button,
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Touch swipe carousels */
+.swipe-container {
+  cursor: grab;
+}
+.swipe-container:active {
+  cursor: grabbing;
+}
+
+/* ============================================================
+   Difficulty Badge Colors
+   ============================================================ */
+@layer utilities {
+  .badge-easy {
+    background: var(--color-pine);
+    color: #fff;
+  }
+  .badge-moderate {
+    background: var(--color-glacier);
+    color: var(--color-midnight);
+  }
+  .badge-difficult {
+    background: var(--color-ember);
+    color: #fff;
+  }
+  .badge-extreme {
+    background: #7b0e0e;
+    color: #fff;
+  }
+}
+
+/* ============================================================
+   Transition Smooth (backwards compat)
+   ============================================================ */
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-default);
+  }
+}
+
+/* ============================================================
+   shadcn/ui accordion animation (required by Radix UI)
+   ============================================================ */
+@layer utilities {
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+}
+
+.season-trek-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  padding: 4px 12px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  display: inline-block;
+}
+.season-trek-chip:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================================
+   Indian Treks Utility Classes
+   ============================================================ */
+@layer utilities {
+  .btn-cta {
+    background: var(--gradient-cta);
+    color: #0a1628;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-family: var(--font-accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .btn-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  .card-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+  }
+  .difficulty-easy {
+    background: #27ae60;
+    color: white;
+    font-family: var(--font-accent);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .difficulty-moderate {
+    background: #d4880e;
+    color: white;
+    font-family: var(--font-accent);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .difficulty-difficult {
+    background: #c0392b;
+    color: white;
+    font-family: var(--font-accent);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .difficulty-extreme {
+    background: #6b0000;
+    color: white;
+    font-family: var(--font-accent);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .glassmorphism-nav {
+    backdrop-filter: blur(20px);
+    background: rgba(10, 22, 40, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .text-display {
+    font-family: var(--font-display);
+  }
+  .text-accent-font {
+    font-family: var(--font-accent);
+  }
+  .text-mono-stat {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+  }
+  .altitude-stat {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  .tag-gold {
+    background: rgba(212, 136, 14, 0.15);
+    color: var(--color-accent);
+    border: 1px solid rgba(212, 136, 14, 0.3);
+    font-family: var(--font-accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+}
+
+.dark {
+  --background: 0.99 0.002 0;
+  --foreground: 0.15 0.005 0;
+  --card: 0.97 0.005 100;
+  --card-foreground: 0.15 0.005 0;
+  --popover: 0.97 0.005 100;
+  --popover-foreground: 0.15 0.005 0;
+  --primary: 0.55 0.15 146;
+  --primary-foreground: 0.99 0.002 0;
+  --secondary: 0.4 0.1 146;
+  --secondary-foreground: 0.99 0.002 0;
+  --muted: 0.88 0.008 0;
+  --muted-foreground: 0.65 0.02 0;
+  --accent: 0.8 0.2 80;
+  --accent-foreground: 0.15 0.005 0;
+  --destructive: 0.62 0.2 25;
+  --destructive-foreground: 0.99 0.002 0;
+  --border: 0.84 0.008 0;
+  --input: 0.88 0.008 0;
+  --ring: 0.55 0.15 146;
+  --chart-1: 0.55 0.15 146;
+  --chart-2: 0.8 0.2 80;
+  --chart-3: 0.72 0.18 50;
+  --chart-4: 0.62 0.2 25;
+  --chart-5: 0.48 0.14 146;
+  --sidebar: 0.97 0.005 100;
+  --sidebar-foreground: 0.15 0.005 0;
+  --sidebar-primary: 0.55 0.15 146;
+  --sidebar-primary-foreground: 0.99 0.002 0;
+  --sidebar-accent: 0.8 0.2 80;
+  --sidebar-accent-foreground: 0.15 0.005 0;
+  --sidebar-border: 0.84 0.008 0;
+  --sidebar-ring: 0.55 0.15 146;
+}
